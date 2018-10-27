@@ -1,0 +1,57 @@
+﻿<div class="masthead">
+
+	<p style="text-align: left; padding-bottom: 20px;">
+		<span style="font-size: 2em;">VegeExpress</span> 
+		<span ng-show = "user == null" style="float: right;" id="user"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
+  Login or Signup
+</button></span>
+
+
+<span ng-show = "user != null" style="float: right;" id="user">
+  Welcome back {{user.userId}}
+</span>
+	</p>
+
+	<nav class='hidden-xs'>
+		<ul class="nav nav-justified">
+			<li class="active"><a href="#">HOME</a></li>
+			<li><a href="#search?item=VEGETABLES">FRESH VEGETABLES</a></li>
+			<li><a href="#search?item=FRUITS">FRESH FRUITS</a></li>
+			<li><a href="#search?item=EXOTICVEG">EXOTIC VEGETABLES</a></li>
+
+			<li><a href="#search?item=DAILY">FRESH DAIRY</a></li>
+
+		</ul>
+	</nav>
+</div>
+
+<h3 style="float: right">
+	<a href="index.html#/cart" title="go to shopping cart"
+		ng-show="cart.getTotalCount() > 0"> <i class="icon-shopping-cart" />
+		Cart {{cart.getTotalCount()}}</b> items, <b>{{cart.getTotalPrice() |
+			currency: "₹"}} </a>
+	</h2>
+
+	<div class="col-lg-4" ng-repeat="item in store.products">
+		<div class="wrap-item nitu">
+			<h2 id="{{item.id}}">{{item.name}}</h2>
+			<p>
+				<img ng-src='{{item.img}}'>
+			</p>
+			<p class="price">
+				<strong> ₹{{item.price}}/{{item.unit}}<strong>
+			</p>
+			<p>
+				<a href=""
+					ng-click="cart.addItem(item.id, item.name, item.price, 1)">Add
+					to Cart</a>
+			</p>
+		</div>
+	</div>
+	<p>
+		<a href="index.html#/cart" title="go to shopping cart"
+			ng-disabled="cart.getTotalCount() < 1"> <i
+			class="icon-shopping-cart" /> <b>{{cart.getTotalCount()}}</b> items,
+			<b>{{cart.getTotalPrice() | currency: "₹"}}</b>
+		</a>
+	</p>

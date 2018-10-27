@@ -1,0 +1,55 @@
+.qty{
+	display: inline-block;
+    max-width: 100px;
+}
+.price{
+	display: inline-block;
+    padding: 0px 20px;
+}
+.nitu{
+	text-align:center;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	margin:10px 20px;
+	border:1px solid #ccc;
+}
+.nitu h2{
+	font-family:'Raleway', 'Sans-serif';
+	font-size:24px;
+	font-weight:400;
+	text-transform: uppercase;
+}
+.shop_by_row {
+    height: 150px;
+}  
+.shop_by_row:before {
+    background-color: rgba(0,0,0,.5);
+    position: absolute;
+    content: '';
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 100%;
+}  
+.category_data {
+	position: relative;
+    text-align: center;
+    z-index: 1;
+    padding: 80px;
+    width: 100%;
+}
+.category_data .category_title {
+    display: block;
+    font-size: 18px;
+    color: #fff;
+    font-weight: 800;
+    height: auto;
+    padding: 0 0 5px 0;
+}
+.category_title {
+	margin: 0 auto;
+    line-height: normal;
+    font-size: 16px;
+}
+.category-data::before {
+    background-color: rgba(0,0,0,.5);
+}

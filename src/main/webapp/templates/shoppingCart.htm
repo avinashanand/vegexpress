@@ -1,0 +1,134 @@
+﻿<div class="masthead">
+
+	<p style="text-align: left; padding-bottom: 20px;">
+		<span style="font-size: 2em;">VegeExpress</span> 
+		<span ng-show = "user == null" style="float: right;" id="user"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
+  Login or Signup
+</button></span>
+
+
+<span ng-show = "user != null" style="float: right;" id="user">
+  Welcome back, {{user.userId}}
+</span>
+	</p>
+
+	<nav class='hidden-xs'>
+		<ul class="nav nav-justified">
+			<li class="active"><a href="#">HOME</a></li>
+			<li><a href="#search?item=VEGETABLES">FRESH VEGETABLES</a></li>
+			<li><a href="#search?item=FRUITS">FRESH FRUITS</a></li>
+			<li><a href="#search?item=EXOTICVEG">EXOTIC VEGETABLES</a></li>
+
+			<li><a href="#search?item=DAILY">FRESH DAIRY</a></li>
+
+		</ul>
+	</nav>
+</div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span8">
+
+            <!-- items -->
+            <table class="table table-bordered">
+
+                <!-- header -->
+                <tr class="well">
+                    <td><b>Item</b></td>
+                    <td class="tdCenter"><b>Quantity</b></td>
+                    <td class="tdRight"><b>Price</b></td>
+                    <td />
+                </tr>
+
+                <!-- empty cart message -->
+                <tr ng-hide="cart.getTotalCount() > 0" >
+                    <td class="tdCenter" colspan="4">
+                        Your cart is empty.
+                    </td>
+                </tr>
+
+                <!-- cart items -->
+                <tr ng-repeat="item in cart.items | orderBy:'name'">
+                    <td>{{item.name}}</td>
+                    <td class="tdCenter">
+                      <div class="input-append">
+                        <!-- use type=tel instead of  to prevent spinners -->
+                        <input
+                            class="span3 text-center" type="tel" 
+                            ng-model="item.quantity" 
+                            ng-change="cart.saveItems()" />
+                        <button 
+                            class="btn btn-success" type="button" 
+                            ng-disabled="item.quantity >= 1000"
+                            ng-click="cart.addItem(item.sku, item.name, item.price, +1)">+</button>
+                        <button 
+                            class="btn btn-inverse" type="button" 
+                            ng-disabled="item.quantity <= 1"
+                            ng-click="cart.addItem(item.sku, item.name, item.price, -1)">-</button>
+                      </div>
+                    </td>
+                    <td class="tdRight">{{item.price * item.quantity | currency: "₹"}}</td>
+                    <td class="tdCenter" title="remove from cart">
+                        <a href="" ng-click="cart.addItem(item.sku, item.name, item.price, -10000000)" >
+                            <i class="icon-remove" />
+                        </a>
+                    </td>
+                </tr>
+
+                <!-- footer -->
+                <tr class="well">
+                    <td><b>Total</b></td>
+                    <td class="tdCenter"><b>{{cart.getTotalCount()}}</b></td>
+                    <td class="tdRight"><b>{{cart.getTotalPrice() | currency: "₹"}}</b></td>
+                    <td />
+                </tr>
+            </table>
+        </div>
+
+        <!-- buttons -->
+        <div class="span4">
+            <p class="text-info">
+                <button 
+                    class="btn btn-block" 
+                    onclick="window.location.href='default.htm'">
+                    <i class="icon-chevron-left" /> back to store
+                </button>
+                <button 
+                    class="btn btn-block btn-danger" 
+                    ng-click="cart.clearItems()" 
+                    ng-disabled="cart.getTotalCount() < 1" >
+                    <i class="icon-trash icon-white" /> clear cart
+                </button>
+            </p>
+
+            <br /><br />
+
+            <p class="text-info">
+                <button
+                    class="btn btn-block btn-primary"
+                    ng-click="cart.checkout('custom')"
+                    ng-disabled="cart.getTotalCount() < 1">
+                    <i class="icon-ok icon-white" /> Checkout
+                </button>
+                <!-- <button 
+                    class="btn btn-block btn-primary" 
+                    ng-click="cart.checkout('Google')" 
+                    ng-disabled="cart.getTotalCount() < 1">
+                    <i class="icon-ok icon-white" /> check out using Google
+                </button>
+                <button 
+                    class="btn btn-block btn-primary" 
+                    ng-click="cart.checkout('Stripe')" 
+                    ng-disabled="cart.getTotalCount() < 1">
+                    <i class="icon-ok icon-white" /> check out using Stripe
+                </button> -->
+            </p>
+                <!-- Stripe needs a form to post to -->
+                <form class="form-stripe"></form>
+
+            <br /><br />
+
+           
+        </div>
+    </div>
+</div>
